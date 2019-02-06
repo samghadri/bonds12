@@ -14,6 +14,13 @@ class FlatBondViews(APIView):
         result_data = serializer.data
         result = {'flatbond': result_data}
         return Response(result)
+        
+    def post(self, request, format=None):
+        serializer = FlatBondSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class FlatBondDetailView(APIView):
@@ -28,3 +35,6 @@ class FlatBondDetailView(APIView):
         serializer = FlatBondSerializer(flatbond)
         result = serializer.data
         return Response(result)
+
+
+
