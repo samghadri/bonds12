@@ -1,0 +1,11 @@
+{% extends 'ui/base.html' %}
+{% block content %}
+<div id="flatbondid" v-cloak>
+    <div v-for="bond in flatbond.flatbond">
+    <p> [[bond.membership_fee]]</p>
+                
+    </div>
+</div>
+
+
+{% endblock %}
