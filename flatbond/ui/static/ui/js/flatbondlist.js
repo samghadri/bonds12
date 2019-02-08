@@ -14,11 +14,10 @@ var FlatbondApp = new Vue({
             return endpart[endpart.length - 1];
         },
         getflatbond: function() {
-            var footerId = this.GetId();
             var data = {
                 "csrfmiddlewaretoken": FlatBondService.csrfToken
             }
-            FlatBondService.getData(FlatBondService.getUrl('flatbond', footerId), data,
+            FlatBondService.getData(FlatBondService.getUrl('flatbond', null), data,
                 function(callbackResult) {
                     FlatbondApp.flatbond = callbackResult;
                 });

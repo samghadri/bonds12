@@ -31,9 +31,9 @@ var FlatBondService = {
             data: data,
             processData: false,
             contentType: false,
-            success: function () {
-                callback();
-                console.log(data)
+            success: function (successData) {
+                callback(successData);
+                console.log(successData)
             },
                 error: function () {
                     alert('NOT working');
