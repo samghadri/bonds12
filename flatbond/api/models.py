@@ -3,7 +3,7 @@ from django.db import models
 class Flatbond(models.Model):
     fixed_memebership_fee = models.BooleanField(default=False)
     rent = models.IntegerField()
-    postcode = models.CharField(max_length=20, blank=True, null=True)
+    postcode = models.CharField(max_length=20)
 
 
     @property

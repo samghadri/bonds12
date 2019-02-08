@@ -13,6 +13,7 @@ var FlatBondService = {
         $.ajax({
             url: url,
             method: "GET",
+            cache: false,
             data: requestedData,
             success: function(data) {
                 successCallback(data);
@@ -22,5 +23,22 @@ var FlatBondService = {
                 
             }
         });
-    }
+    },
+    postForm: function(data, callback){
+        $.ajax({
+            url: '/api/flatbond',
+            method: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function () {
+                callback();
+                console.log(data)
+            },
+                error: function () {
+                    alert('NOT working');
+
+                }
+            });
+    },
 }
