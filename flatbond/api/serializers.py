@@ -9,6 +9,8 @@ class FlatBondSerializer(serializers.ModelSerializer):
     fixed_memebership_fee_amount = serializers.ReadOnlyField()
     rent = serializers.IntegerField()
     postcode = serializers.CharField(allow_null=True)
+    is_monthly = serializers.BooleanField(default=False)
+
 
     class Meta:
         model = Flatbond
