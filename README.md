@@ -11,9 +11,7 @@
 **install and setup virtualenv**
 1. pip install virtualenv
 2. virtualenv venv
-
-**on Ubuntu**
-3. source venv/bin/activate
+3. source venv/bin/activate  **on ubuntu**
 4. go the app root
 5. pip install -r requirements.txt **setup dependencies**
 6. python manage.py runserver
