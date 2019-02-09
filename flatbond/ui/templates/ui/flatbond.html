@@ -1,6 +1,7 @@
 {% extends 'ui/base.html' %}
 {% block content %}
-<div id="flatbondid">
+<div id="flatbondid" class="mt-5">
+<a href="/" class="btn btn-primary mt-2">Go back to Create FlatBond</a>
     <div v-for="bond in flatbond.flatbond" class="text-center">
         <p v-if="bond.postcode"> <span>Your PostCode= </span>[[ bond.postcode ]]</p>
         <p> <span>The Membership Including VAT= </span>[[ bond.membership_fee ]]</p>
@@ -8,6 +9,8 @@
         <p>is it Fixed Memebership fee? = <span v-if="bond.fixed_memebership_fee == true">YES</span><span v-else>NO</span></p>
            <hr>     
     </div>
+
+
 </div>
 
 

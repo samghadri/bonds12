@@ -33,7 +33,6 @@ var FlatBondService = {
             contentType: false,
             success: function (successData) {
                 callback(successData);
-                console.log(successData)
             },
                 error: function () {
                     alert('NOT working');

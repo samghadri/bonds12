@@ -3,6 +3,10 @@ var FlatbondApp = new Vue({
     el: '#flatform',
     data: {
         calculatedFee:'',
+        result:{},
+        disableSubmit: false,
+        hideReset: true,
+        monthlyCheck: false
     },
     computed: {
         getFee: function(){
@@ -14,17 +18,21 @@ var FlatbondApp = new Vue({
 
     methods: {
 
-        submitForm: function(callback) {
-                
-            var data = new FormData($('#flatbondform')[0]);
-            
-            FlatBondService.postForm(data, function() {
+    submitForm: function(callback) {
+        var data = new FormData($('#flatbondform')[0]);
+        var self = this;
 
-                
+        FlatBondService.postForm(data, function(successData) {
+            self.result = successData;
+            self.disableSubmit = true;
+            self.hideReset = false;
+        console.log(self.result);
+
             });
-
-    },
-
-
+        },
+        resetBtn: function(){
+            this.disableSubmit = false;
+            this.hideReset = true;
+        }
     },
 });

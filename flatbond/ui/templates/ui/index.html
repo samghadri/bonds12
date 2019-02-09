@@ -1,33 +1,51 @@
 {% extends 'ui/base.html' %}
 {% load staticfiles %}
 {% block content %}
-<div id="flatform">
+<div class="mt-5" id="flatform" v-cloak>
 <form id="flatbondform" method="POST">
         {% csrf_token %}
-
-    <div class="form-group">
-      <label for="rentamount">Please enter rent amount</label>
-      <input type="number" name="rent" class="form-control" id="rentamount"  placeholder="Rent amount" v-model="calculatedFee">
-      <small id="rentHelp" class="form-text text-muted">Minimum Rent £25 and maximum £110</small>
+    <div class="form-check mb-4">
+    <input type="checkbox"  class="form-check-input" v-model="monthlyCheck" :disabled="disableSubmit == true">
+        <label class="form-check-label" for="fixedvalue">Tick the box if the rent is monthly</label>
     </div>
-    <div class="form-group">
+    <div  class="form-group">
+      <label v-if="!monthlyCheck" for="rentamount">Please enter Weekly rent amount</label>
+      <label v-if="monthlyCheck" for="rentamount">Please enter Monthly rent amount</label>
+      <input type="number" name="rent" class="form-control" id="rentamount"  placeholder="Rent amount" v-model="calculatedFee" :disabled="disableSubmit == true">
+      <small v-if="!monthlyCheck" class="form-text text-muted">minimum amount is £25 per week and £2000 per week</small>
+      <small v-if="monthlyCheck" class="form-text text-muted">minimum amount is £110 per month and £8660 per month</small>
+    </div>
+    <div class="form-group text-center">
             <p v-if="calculatedFee > 100" class="mb-0">Your Memberhip Fee after 20% TAX is = <span style="font-weight:700; color:blue">£[[ getFee ]]</span></p>
-            <p v-else-if="calculatedFee == 0" class="mb-0">There noting to Pay</p>
-            <p v-else class="mb-0">the set fee is = <span style="font-weight:700; color:blue">£120</span></p>
+            <p v-else-if="calculatedFee == 0" class="mb-0">There is noting to Pay</p>
+            <p v-else class="mb-0">The set fee is = <span style="font-weight:700; color:blue">£120</span></p>
             <small id="rentHelp" class="form-text text-muted">If Rent is less than £100 - The set if is £120</small>
     </div>
     <div class="form-group">
       <label for="postcodefield">Please enter your Postcode</label>
-      <input type="text" name="postcode" class="form-control" id="postcodefield" placeholder="postcode">
+      <input type="text" name="postcode" class="form-control" id="postcodefield" placeholder="postcode" :disabled="disableSubmit == true">
     </div>
     <div class="form-check">
-      <input type="checkbox" name="fixed_memebership_fee" class="form-check-input" id="fixedvalue">
+      <input type="checkbox" name="fixed_memebership_fee" class="form-check-input" id="fixedvalue" :disabled="disableSubmit == true">
       <label class="form-check-label" for="fixedvalue">Is it Fixed Monthly Fee?</label>
     </div>
     
   </form>
-  <button v-on:click="submitForm()" class="btn btn-primary">Submit</button> 
-  <a :href="/flatbond/" class="btn btn-primary" id="listBtn">Flatbond List</a>
+  <div>
+        <button v-on:click="submitForm()" class="btn btn-primary" :disabled="disableSubmit || 
+                                                                (!monthlyCheck && Number(calculatedFee) < 25 || Number(calculatedFee) > 2000) ||
+                                                                (monthlyCheck && Number(calculatedFee) < 110 || Number(calculatedFee) > 8660)">Submit</button> 
+        <a :href="/flatbond/" class="btn btn-primary" id="listBtn">Flatbond List</a>
+        <button v-on:click="resetBtn()" v-show="!hideReset" class="btn btn-success">Restart ?</button> 
+  </div>
+  <div class="jumbotron mt-4 text-center">
+
+        <p><span v-if="!monthlyCheck">Your weekly Rent will cost:</span> <span v-if="monthlyCheck">Your monthly Rent will cost:</span> <span v-if="result.rent">£</span>[[ result.rent ]]</p>
+        <p v-if="!result.fixed_memebership_fee">Fee charges: <span v-if="result.membership_fee">Your Membership fee cost: £</span>[[ result.membership_fee]]</p>
+        <p v-if="result.fixed_memebership_fee==true">Fee Charges: <span v-if="result.fixed_memebership_fee_amount">Your Fixed Membership fee amount cost: £</span>[[ result.fixed_memebership_fee_amount]]</p>
+        <p>Your PostCode: [[ result.postcode ]]</p>
+  </div> 
+
 </div>
 
 {% endblock %}
