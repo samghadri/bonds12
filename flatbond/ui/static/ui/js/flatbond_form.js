@@ -13,7 +13,15 @@ var FlatbondFormApp = new Vue({
             getTax = (this.calculatedFee * 20) / 100;
             totalfee = +this.calculatedFee + +getTax;
             return totalfee; 
-        }
+        },
+        placeholderText: function() {
+            if (!this.monthlyCheck) {
+                return 'Minimum amount £25 and Maximum amount £2000';
+            }
+            if (this.monthlyCheck) {
+                return 'Minimum amount £110 and Maximum amount £8660';
+            }
+        },
     },
 
     methods: {

@@ -11,7 +11,7 @@
     <div  class="form-group">
       <label v-if="!monthlyCheck" for="rentamount">Please enter Weekly rent amount</label>
       <label v-if="monthlyCheck" for="rentamount">Please enter Monthly rent amount</label>
-      <input type="number" name="rent" class="form-control" id="rentamount"  placeholder="Rent amount" v-model="calculatedFee" :disabled="disableSubmit == true">
+      <input type="number" name="rent" class="form-control" id="rentamount"  :placeholder="placeholderText" v-model="calculatedFee" :disabled="disableSubmit == true">
       <small v-if="!monthlyCheck" class="form-text text-muted">minimum amount is £25 per week and £2000 per week</small>
       <small v-if="monthlyCheck" class="form-text text-muted">minimum amount is £110 per month and £8660 per month</small>
     </div>
