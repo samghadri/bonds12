@@ -15,5 +15,5 @@
 **on Ubuntu**
 3. source venv/bin/activate
 4. go the app root
-5. pip install -r .requirements.txt **setup dependencies**
+5. pip install -r requirements.txt **setup dependencies**
 6. python manage.py runserver

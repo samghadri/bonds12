@@ -1,4 +1,4 @@
-var FlatbondApp = new Vue({
+var FlatbondFormApp = new Vue({
     delimiters: ['[[', ']]'],
     el: '#flatform',
     data: {
