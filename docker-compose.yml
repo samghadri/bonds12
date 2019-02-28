@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  web:
-    build: .
-    command: python flatbond/manage.py runserver 0.0.0.0:8000
+  flatdocker:
+    build:
+      context: .
     volumes:
-     - .:/flatdocker
+      - .:/flatdocker
     ports:
-      - "8000:8000"
-      
-
+        - "8000:8000"
+    command: >
+      sh -c "python flatbond/manage.py runserver 0.0.0.0:8000"
